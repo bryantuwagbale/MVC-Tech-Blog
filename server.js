@@ -1,3 +1,4 @@
+const mysql = require('mysql2');
 const express = require("express");
 const path = require("path");
 //paths
@@ -36,6 +37,19 @@ app.use("/", controller);
 //set handlebars as render engine
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
+
+// Connect to database
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    // Your MySQL username,
+    user: 'root',
+    // Your MySQL password
+    password: 'snowcrab522301',
+    database: 'MVC_Tech_Blog'
+  },
+  console.log('Connected to the database.')
+);
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
